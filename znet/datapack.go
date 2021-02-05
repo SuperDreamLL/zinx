@@ -19,7 +19,7 @@ func NewDataPack() *DataPack {
 //获取包头长度方法
 func (dp *DataPack) GetHeadLen() uint32 {
 	//Id uint32(4字节) +  DataLen uint32(4字节)
-	return 8
+	return 4
 }
 
 //封包方法(压缩数据)
@@ -28,12 +28,12 @@ func (dp *DataPack) Pack(msg ziface.IMessage) ([]byte, error) {
 	dataBuff := bytes.NewBuffer([]byte{})
 
 	//写dataLen
-	if err := binary.Write(dataBuff, binary.LittleEndian, msg.GetDataLen()); err != nil {
+	if err := binary.Write(dataBuff, binary.LittleEndian, uint16(msg.GetDataLen())); err != nil {
 		return nil, err
 	}
 
 	//写msgID
-	if err := binary.Write(dataBuff, binary.LittleEndian, msg.GetMsgId()); err != nil {
+	if err := binary.Write(dataBuff, binary.LittleEndian, uint16(msg.GetMsgId())); err != nil {
 		return nil, err
 	}
 

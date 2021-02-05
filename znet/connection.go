@@ -204,7 +204,7 @@ func (c *Connection) RemoteAddr() net.Addr {
 }
 
 //直接将Message数据发送数据给远程的TCP客户端
-func (c *Connection) SendMsg(msgId uint32, data []byte) error {
+func (c *Connection) SendMsg(msgId uint16, data []byte) error {
 	c.RLock()
 	if c.isClosed == true {
 		c.RUnlock()
@@ -226,7 +226,7 @@ func (c *Connection) SendMsg(msgId uint32, data []byte) error {
 	return nil
 }
 
-func (c *Connection) SendBuffMsg(msgId uint32, data []byte) error {
+func (c *Connection) SendBuffMsg(msgId uint16, data []byte) error {
 	c.RLock()
 	if c.isClosed == true {
 		c.RUnlock()
